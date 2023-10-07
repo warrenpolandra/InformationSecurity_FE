@@ -1,6 +1,5 @@
 import "../styles/home.css";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import $ from "jquery";
 import "datatables.net-dt";
 
@@ -37,8 +36,37 @@ export const Home = () => {
       data: allData.data,
       columns: [
         {},
-        { data: "name" },
-        { data: "filename" },
+        {
+          data: "name",
+          render: function (data, type, row) {
+            if (type === "display" && data.length > 30) {
+              return (
+                '<span title="' +
+                data +
+                '">' +
+                data.substr(0, 30) +
+                "...</span>"
+              );
+            }
+            return data;
+          },
+        },
+        {
+          data: "filename",
+          render: function (data, type, row) {
+            if (type === "display" && data.length > 40) {
+              return (
+                '<span title="' +
+                data +
+                '">' +
+                data.substr(0, 40) +
+                "...</span>"
+              );
+            }
+            return data;
+          },
+        },
+
         {
           orderable: false,
           data: null,
