@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Sidebar } from "./components/Sidebar";
 import { Home } from "./components/Home";
 import { Upload } from "./components/Upload";
+import { Toast } from "./components/Toast";
 import "./styles/dashboard.css";
 
 const dashboard = () => {
@@ -14,6 +15,7 @@ const dashboard = () => {
 
   return (
     <div className="dashboard">
+      <Toast />
       <Sidebar onButtonClick={handleSidebarClick} />
       {selectedComponent === "home" && <Home />}
       {selectedComponent === "upload" && <Upload />}

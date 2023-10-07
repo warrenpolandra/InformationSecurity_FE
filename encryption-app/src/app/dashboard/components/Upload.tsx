@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
+import { toast } from "react-toastify";
 import "../styles/upload.css";
 
 export const Upload = () => {
   // TODO: CHANGE TOKEN FROM LOCAL STORAGE
   const token = "";
+  const url = "http://localhost:8888/api/user/upload";
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -47,15 +49,17 @@ export const Upload = () => {
         body: formData,
       }).then((response) => {
         if (response.ok) {
-          alert("Your file has been uploaded!");
-          window.location.reload();
+          toast.success("Your file has been uploaded!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         } else {
           console.log(response);
-          alert("Upload Failed: " + response.statusText);
+          toast.error("Upload Failed: " + response.statusText);
         }
       });
     } else {
-      alert("File cannot be empty!");
+      toast.error("File cannot be empty!");
     }
   };
 

@@ -1,6 +1,6 @@
 import "../styles/home.css";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import $ from "jquery";
 import "datatables.net-dt";
 
@@ -37,7 +37,7 @@ export const Home = () => {
       data: allData.data,
       columns: [
         {},
-        { data: "id" },
+        { data: "name" },
         { data: "filename" },
         {
           orderable: false,
