@@ -11,7 +11,9 @@
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.4"
+    "next": "13.5.4",
+    "jquery": "^3.6.0",
+    "datatables.net-dt": "^1.13.6"
   },
   "devDependencies": {
     "typescript": "^5",

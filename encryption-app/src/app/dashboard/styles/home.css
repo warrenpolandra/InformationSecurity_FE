@@ -2,12 +2,26 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    background: #1f1d58;
-    display: flex;
+.home {
+    padding: 10px 0 0 20px;
+    align-items: center;
+    color: white;
+    width: calc(100% - 280px);
+    height: 100%;
 }
 
-.home {
-    display: flex;
+h1 {
+    margin: 0;
+}
+
+#filesTable button{
+    padding: 5px;
+    color: white;
+    background-color: green;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#filesTable button:hover{
+    background-color: rgb(0, 73, 0);
 }

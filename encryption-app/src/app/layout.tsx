@@ -26,6 +26,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css"
+        />
       </head>
       <body className={inter.className}>{children}</body>
     </html>

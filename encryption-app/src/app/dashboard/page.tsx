@@ -8,7 +8,7 @@ import "./styles/dashboard.css";
 const dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState("home");
 
-  const handleSidebarClick = (componentName) => {
+  const handleSidebarClick = (componentName: React.SetStateAction<string>) => {
     setSelectedComponent(componentName);
   };
 

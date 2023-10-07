@@ -15,19 +15,22 @@ button {
 }
 
 .sidebar {
-    overflow: hidden;
+    min-width: 60px;
     width: 60px;
     height: 100vh;
     background: #29277a;
-    transition: width 0.4s;
+    transition: all 0.4s;
+    overflow: hidden;
 }
 
 .sidebar.open {
-    width: 260px;
+    min-width: 260px;
+    transition: all 0.4s;
 }
 
 .sidebar-inner {
-    width: 260px;
+    min-width: 260px;
+    overflow: hidden;
 }
 
 .sidebar-header {
