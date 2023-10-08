@@ -47,17 +47,23 @@ export const Upload = () => {
           Authorization: "Bearer " + token,
         },
         body: formData,
-      }).then((response) => {
-        if (response.ok) {
-          toast.success("Your file has been uploaded!");
-          setTimeout(() => {
-            window.location.reload();
-          }, 3000);
-        } else {
-          console.log(response);
-          toast.error("Upload Failed: " + response.statusText);
-        }
-      });
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            toast.error("Upload Failed: " + response.statusText);
+          }
+        })
+        .then((data) => {
+          if (data) {
+            const timeTaken = data.data.time;
+            toast.success("Your file has been uploaded, " + timeTaken);
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          }
+        });
     } else {
       toast.error("File cannot be empty!");
     }
