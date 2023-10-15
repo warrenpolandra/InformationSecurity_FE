@@ -1,7 +1,9 @@
 import "../styles/home.css";
 import { useEffect, useState } from "react";
-import $ from "jquery";
+import $, { event } from "jquery";
+import { toast } from "react-toastify";
 import "datatables.net-dt";
+import { table } from "console";
 
 export const Home = () => {
   const [allData, setAllData] = useState([]);
@@ -66,48 +68,10 @@ export const Home = () => {
             return data;
           },
         },
-
         {
           orderable: false,
           data: null,
-          render: function (data, type, row) {
-            const media = JSON.stringify(data);
-            return `<button onclick='
-              event.preventDefault();
-              const mediaData = ${media};
-              const token = "${token}";
-              var isOk = true;
-  
-              fetch(mediaData.path, {
-                method: "GET",
-                headers: {
-                  Authorization: "Bearer " + token,
-                },
-              })
-                .then((response) => {
-                  if (response.ok) {
-                    return response.blob();
-                  } else {
-                    alert("Request Failed: " + response.statusText);
-                    isOk = false;
-                  }
-                })
-                .then((blob) => {
-                  if (isOk){
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = mediaData.filename;
-                    a.style.display = "none";
-                    document.body.appendChild(a);
-                    a.click();
-    
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                  }
-                });
-            '>Download</button>`;
-          },
+          defaultContent: "<button>Download</button>",
         },
       ],
       lengthChange: false,
@@ -120,6 +84,43 @@ export const Home = () => {
           },
         },
       ],
+    });
+    table.off("click", "button");
+
+    table.on("click", "button", function (e) {
+      let data = table.row(e.target.closest("tr")).data();
+      let path = data.path;
+      let filename = data.filename;
+      var isOk = true;
+
+      console.log(data);
+
+      fetch(path, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            toast.success(response.headers.get("Time"));
+            return response.blob();
+          } else {
+            toast.error("Request Failed: " + response.statusText);
+            isOk = false;
+          }
+        })
+        .then((blob) => {
+          if (isOk) {
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+          }
+        });
     });
   }, [allData]);
 

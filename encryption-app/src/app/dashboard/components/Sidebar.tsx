@@ -2,7 +2,7 @@
 import { useState } from "react";
 import "../styles/sidebar.css";
 
-const navItems = ["home", "upload", "logout"];
+const navItems = ["home", "upload", "person", "logout"];
 
 export const Sidebar = ({ onButtonClick }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +30,7 @@ export const Sidebar = ({ onButtonClick }) => {
               onClick={() => onButtonClick(item)}
             >
               <span className="material-symbols-outlined">{item}</span>
-              <p>{item}</p>
+              <p>{item === "person" ? "Profile" : item}</p>
             </button>
           ))}
         </nav>
