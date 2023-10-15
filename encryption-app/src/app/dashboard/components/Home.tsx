@@ -1,9 +1,8 @@
 import "../styles/home.css";
 import { useEffect, useState } from "react";
-import $, { event } from "jquery";
+import $ from "jquery";
 import { toast } from "react-toastify";
 import "datatables.net-dt";
-import { table } from "console";
 
 export const Home = () => {
   const [allData, setAllData] = useState([]);
