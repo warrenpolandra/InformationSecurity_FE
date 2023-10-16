@@ -39,6 +39,10 @@ body {
     flex: 4;
 }
 
+input {
+    cursor: pointer;
+}
+
 .previewFile {
     display: flex;
     flex-direction: column;
@@ -54,7 +58,7 @@ body {
     font-weight: bold;
 }
 
-#uploadForm input{
+#file {
    display: none;
 }
 

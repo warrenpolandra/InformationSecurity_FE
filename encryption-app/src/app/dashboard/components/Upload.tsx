@@ -5,11 +5,18 @@ import "../styles/upload.css";
 export const Upload = () => {
   // TODO: CHANGE TOKEN FROM LOCAL STORAGE
   const token = "";
-  const url = "http://localhost:8888/api/user/upload";
+  const url = "http://localhost:8888/api/user/upload/";
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
+  const [selectedRadioBtn, setSelectedRadioBtn] = useState("AES");
+  const isRadioSelected = (value: string): boolean =>
+    selectedRadioBtn === value;
+  const handleRadioClick = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setSelectedRadioBtn(e.currentTarget.value);
+  };
+
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -41,7 +48,7 @@ export const Upload = () => {
       const formData = new FormData();
       formData.append("media", selectedFile);
 
-      fetch(url, {
+      fetch(url + selectedRadioBtn, {
         method: "POST",
         headers: {
           Authorization: "Bearer " + token,
@@ -76,6 +83,7 @@ export const Upload = () => {
         <ol>
           <li>This is the upload menu, you can upload your file here.</li>
           <li>Choose your file by clicking the button.</li>
+          <li>Choose one of the available encryption method</li>
           <li>Click submit to upload your file</li>
           <li>
             Your file will be uploaded and the filename will be visible to any
@@ -113,6 +121,38 @@ export const Upload = () => {
               >
                 <span className="material-symbols-outlined">upload</span>
               </button>
+            </div>
+            <br />
+            <label htmlFor="encryption-method">
+              Choose One Encryption Method
+            </label>
+            <div id="encryption-method">
+              <input
+                type="radio"
+                value="AES"
+                name="encryption-method"
+                checked={isRadioSelected("AES")}
+                onChange={handleRadioClick}
+              />{" "}
+              AES
+              <br />
+              <input
+                type="radio"
+                value="RC4"
+                name="encryption-method"
+                checked={isRadioSelected("RC4")}
+                onChange={handleRadioClick}
+              />{" "}
+              RC4
+              <br />
+              <input
+                type="radio"
+                value="DES"
+                name="encryption-method"
+                checked={isRadioSelected("DES")}
+                onChange={handleRadioClick}
+              />{" "}
+              DES
             </div>
             <br />
             <button id="submitButton" type="submit">
