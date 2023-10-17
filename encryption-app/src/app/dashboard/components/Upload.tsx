@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import "../styles/upload.css";
 
 export const Upload = () => {
-  // TODO: CHANGE TOKEN FROM LOCAL STORAGE
-  const token = "";
+  const token = sessionStorage.getItem("token");
   const url = "http://localhost:8888/api/user/upload/";
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,6 +15,12 @@ export const Upload = () => {
   const handleRadioClick = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSelectedRadioBtn(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    if (token === null) {
+      window.location.href = "/auth/login";
+    }
+  });
 
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];

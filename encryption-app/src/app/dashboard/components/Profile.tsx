@@ -8,9 +8,12 @@ export const Profile = () => {
   const [imageSrc, setImageSrc] = useState("");
   const hasRun = useRef(false);
 
-  // TODO: CHANGE TOKEN FROM LOCAL STORAGE
-  const token = "";
-
+  const token = sessionStorage.getItem("token");
+  useEffect(() => {
+    if (token === null) {
+      window.location.href = "/auth/login";
+    }
+  });
   useEffect(() => {
     if (!hasRun.current) {
       const getData = async () => {

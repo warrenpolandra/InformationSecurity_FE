@@ -7,8 +7,13 @@ import "datatables.net-dt";
 export const Home = () => {
   const [allData, setAllData] = useState([]);
 
-  // TODO: CHANGE TOKEN FROM LOCAL STORAGE
-  const token = "";
+  const token = sessionStorage.getItem("token");
+
+  useEffect(() => {
+    if (token === null) {
+      window.location.href = "/auth/login";
+    }
+  });
 
   useEffect(() => {
     const getData = async () => {

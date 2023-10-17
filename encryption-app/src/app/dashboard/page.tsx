@@ -12,6 +12,12 @@ const dashboard = () => {
 
   const handleSidebarClick = (componentName: React.SetStateAction<string>) => {
     setSelectedComponent(componentName);
+    if (componentName === "logout") {
+      sessionStorage.removeItem("token");
+      window.location.href = "/auth/login";
+    }
+
+    setSelectedComponent(componentName);
   };
 
   return (
@@ -21,6 +27,7 @@ const dashboard = () => {
       {selectedComponent === "home" && <Home />}
       {selectedComponent === "upload" && <Upload />}
       {selectedComponent === "person" && <Profile />}
+      {selectedComponent === "logout"}
     </div>
   );
 };
