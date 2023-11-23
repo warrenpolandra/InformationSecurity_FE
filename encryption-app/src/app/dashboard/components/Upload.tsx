@@ -102,7 +102,7 @@ export const Upload = () => {
             After uploading, you can download your own file in the home menu by
             clicking the download button. But you can only download
             <strong> YOUR OWN FILE </strong>. You can't download other user's
-            file.
+            file without entering encrypted key given from the file's owner.
           </li>
         </ol>
       </div>

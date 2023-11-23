@@ -18,11 +18,23 @@ h1 {
 #filesTable button{
     padding: 5px;
     color: white;
-    background-color: green;
     border: 2px solid white;
     border-radius: 4px;
+    margin-right: 8px;
 }
 
-#filesTable button:hover{
+.downloadBtn {
+    background-color: green;
+}
+
+.downloadBtn:hover {
     background-color: rgb(0, 73, 0);
+}
+
+.requestButton {
+    background-color: rgb(220, 143, 0);
+}
+
+.requestButton:hover {
+    background-color: rgb(191, 124, 0);
 }

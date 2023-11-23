@@ -82,10 +82,10 @@ export const Profile = () => {
               </tr>
               <tr>
                 <td>
-                  <h3>Unique Key:</h3>
+                  <h3>Public Key:</h3>
                 </td>
                 <td>
-                  <h3>{userData.data.key}</h3>
+                  <h3>{userData.data.PublicKey}</h3>
                 </td>
               </tr>
               <tr>

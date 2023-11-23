@@ -3,11 +3,18 @@ import { useEffect, useState } from "react";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "datatables.net-dt";
+import { Popup } from "./Popup";
 
 export const Home = () => {
   const [allData, setAllData] = useState([]);
 
   const token = sessionStorage.getItem("token");
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [currentFilename, setCurrentFileName] = useState("");
+
+  const [currentDownKey, setCurrentDownKey] = useState("");
 
   useEffect(() => {
     if (token === null) {
@@ -75,7 +82,8 @@ export const Home = () => {
         {
           orderable: false,
           data: null,
-          defaultContent: "<button>Download</button>",
+          defaultContent:
+            "<button class='downloadBtn'>Download</button><button class='requestButton'>Request</button>",
         },
       ],
       lengthChange: false,
@@ -89,16 +97,30 @@ export const Home = () => {
         },
       ],
     });
-    table.off("click", "button");
+    table.off("click", ".downloadBtn");
+    table.off("click", ".requestButton");
 
-    table.on("click", "button", function (e) {
+    table.on("click", ".requestButton", function (e) {
+      let data = table.row(e.target.closest("tr")).data();
+      console.log(data);
+      let requestUrl = data.request_url;
+
+      fetch(requestUrl, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      toast.success("Access request sent to owner's email");
+    });
+
+    table.on("click", ".downloadBtn", function (e) {
       let data = table.row(e.target.closest("tr")).data();
       let path = data.path;
       let filename = data.filename;
       var isOk = true;
-
-      console.log(data);
-
+      console.log(path);
       fetch(path, {
         method: "GET",
         headers: {
@@ -110,14 +132,15 @@ export const Home = () => {
             toast.success(response.headers.get("Time"));
             return response.blob();
           } else {
-            toast.error("Request Failed: " + response.statusText);
+            setCurrentFileName(data.filename);
+            setCurrentDownKey(data.downkey);
+            setShowPopup(true);
             isOk = false;
           }
         })
         .then((blob) => {
           if (isOk) {
             const url = window.URL.createObjectURL(blob);
-
             const a = document.createElement("a");
             a.href = url;
             a.download = filename;
@@ -142,6 +165,14 @@ export const Home = () => {
         </thead>
         <tbody></tbody>
       </table>
+      {showPopup && (
+        <Popup
+          token={token}
+          downKey={currentDownKey}
+          filename={currentFilename}
+          onClosePopup={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };
