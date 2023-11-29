@@ -2,6 +2,7 @@ import "../styles/home.css";
 import { useEffect, useState } from "react";
 import $ from "jquery";
 import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 import "datatables.net-dt";
 import { Popup } from "./Popup";
 
@@ -16,11 +17,9 @@ export const Home = () => {
 
   const [currentDownKey, setCurrentDownKey] = useState("");
 
-  useEffect(() => {
-    if (token === null) {
-      window.location.href = "/auth/login";
-    }
-  });
+  if (token === null) {
+    redirect("/");
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -140,12 +139,12 @@ export const Home = () => {
         })
         .then((blob) => {
           if (isOk) {
-            const url = window.URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
             a.download = filename;
             a.click();
-            window.URL.revokeObjectURL(url);
+            URL.revokeObjectURL(url);
           }
         });
     });

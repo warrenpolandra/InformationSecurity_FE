@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Toast } from "../../dashboard/components/Toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import "../styles.css";
 
 export default function register() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -42,7 +44,7 @@ export default function register() {
           if (data) {
             toast.success("Register success, you can log in now");
             setTimeout(() => {
-              window.location.href = "/auth/login";
+              router.push("/auth/login");
             }, 3000);
           }
         });

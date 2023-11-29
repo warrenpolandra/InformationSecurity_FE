@@ -4,8 +4,10 @@ import { Toast } from "../../dashboard/components/Toast";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import "../styles.css";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -32,7 +34,7 @@ export default function Login() {
           toast.success("Login Success");
           sessionStorage.setItem("token", data.data.token);
           setTimeout(() => {
-            window.location.href = "/dashboard";
+            router.push("/dashboard");
           }, 2000);
         }
       });
