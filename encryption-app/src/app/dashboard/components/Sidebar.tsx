@@ -19,7 +19,7 @@ export const Sidebar = ({ onButtonClick }) => {
               {isOpen ? "close" : "menu"}
             </span>
           </button>
-          <h2>Encryption App</h2>
+          <h2>Hepmew Storage</h2>
         </header>
         <nav className="sidebar-menu">
           {navItems.map((item) => (

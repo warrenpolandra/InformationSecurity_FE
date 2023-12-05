@@ -6,6 +6,7 @@ import { Upload } from "./components/Upload";
 import { Profile } from "./components/Profile";
 import { Toast } from "./components/Toast";
 import "./styles/dashboard.css";
+import { Verify } from "./components/Verify";
 
 const dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState("home");

@@ -389,6 +389,10 @@ legend + * {
   -webkit-appearance: textfield;
 }
 
+main {
+  align-items: center;
+}
+
 /* rtl:raw:
 [type="tel"],
 [type="url"],

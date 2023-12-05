@@ -28,7 +28,7 @@ h1 {
 }
 
 .downloadBtn:hover {
-    background-color: rgb(0, 73, 0);
+    background-color: rgb(0, 113, 0);
 }
 
 .requestButton {
@@ -37,4 +37,12 @@ h1 {
 
 .requestButton:hover {
     background-color: rgb(191, 124, 0);
+}
+
+.verifyButton {
+    background-color: rgb(220, 0, 7);
+}
+
+.verifyButton:hover {
+    background-color: rgb(160, 0, 5);
 }

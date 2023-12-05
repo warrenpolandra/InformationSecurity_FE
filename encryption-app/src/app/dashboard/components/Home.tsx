@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
 import "datatables.net-dt";
 import { Popup } from "./Popup";
+import { Verify } from "./Verify";
 
 export const Home = () => {
   const [allData, setAllData] = useState([]);
@@ -13,9 +14,15 @@ export const Home = () => {
 
   const [showPopup, setShowPopup] = useState(false);
 
+  const [showVerify, setShowVerify] = useState(false);
+
   const [currentFilename, setCurrentFileName] = useState("");
 
   const [currentDownKey, setCurrentDownKey] = useState("");
+
+  const [currentPublicKey, setCurrentPublicKey] = useState("");
+
+  const [currentSignature, setCurrentSignature] = useState("");
 
   if (token === null) {
     redirect("/");
@@ -82,7 +89,7 @@ export const Home = () => {
           orderable: false,
           data: null,
           defaultContent:
-            "<button class='downloadBtn'>Download</button><button class='requestButton'>Request</button>",
+            "<button class='downloadBtn'>Download</button><button class='requestButton'>Request</button><button class='verifyButton'>Verify PDF</button>",
         },
       ],
       lengthChange: false,
@@ -98,10 +105,10 @@ export const Home = () => {
     });
     table.off("click", ".downloadBtn");
     table.off("click", ".requestButton");
+    table.off("click", ".verifyButton");
 
     table.on("click", ".requestButton", function (e) {
       let data = table.row(e.target.closest("tr")).data();
-      console.log(data);
       let requestUrl = data.request_url;
 
       fetch(requestUrl, {
@@ -119,7 +126,6 @@ export const Home = () => {
       let path = data.path;
       let filename = data.filename;
       var isOk = true;
-      console.log(path);
       fetch(path, {
         method: "GET",
         headers: {
@@ -148,6 +154,22 @@ export const Home = () => {
           }
         });
     });
+
+    table.on("click", ".verifyButton", function (e) {
+      let data = table.row(e.target.closest("tr")).data();
+      let filename = data.filename;
+      setCurrentFileName(filename);
+      if (!filename.endsWith(".pdf")) {
+        toast.error("Only PDF files can be verified");
+        return;
+      }
+
+      setShowVerify(true);
+      let signature = data.signature;
+      let publicKey = data.public_key;
+      setCurrentPublicKey(publicKey);
+      setCurrentSignature(signature);
+    });
   }, [allData]);
 
   return (
@@ -170,6 +192,14 @@ export const Home = () => {
           downKey={currentDownKey}
           filename={currentFilename}
           onClosePopup={() => setShowPopup(false)}
+        />
+      )}
+      {showVerify && (
+        <Verify
+          filename={currentFilename}
+          publicKey={currentPublicKey}
+          signature={currentSignature}
+          onCloseVerify={() => setShowVerify(false)}
         />
       )}
     </div>

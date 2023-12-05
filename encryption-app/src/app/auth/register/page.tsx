@@ -68,10 +68,21 @@ export default function register() {
       <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
           <main>
-            <div className="container">
+            <div className="container" style={{ marginTop: "20px" }}>
+              <img
+                className="hepmew-logo"
+                src="/logo.png"
+                alt="Logo"
+                style={{
+                  display: "block",
+                  margin: "auto",
+                  width: "50%",
+                  height: "50%",
+                }}
+              />
               <div className="row justify-content-center">
                 <div className="col-lg-7">
-                  <div className="card shadow-lg border-0 rounded-lg mt-5">
+                  <div className="card shadow-lg border-0 rounded-lg mt-3">
                     <div className="card-header">
                       <h3 className="text-center font-weight-light my-4">
                         Create Account
