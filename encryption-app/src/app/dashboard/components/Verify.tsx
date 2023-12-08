@@ -6,14 +6,12 @@ import "../styles/popup.css";
 interface VerifyProps {
   filename: string;
   publicKey: string;
-  signature: string;
   onCloseVerify: () => void;
 }
 
 export const Verify: React.FC<VerifyProps> = ({
   filename,
   publicKey,
-  signature,
   onCloseVerify,
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -25,14 +23,9 @@ export const Verify: React.FC<VerifyProps> = ({
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    let url = "http://localhost:8888/api/user/verify";
+    let url = "http://localhost:8888/api/user/verify/" + publicKey;
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("signature", signature);
-    formData.append("publicKey", publicKey);
-
-    console.log("pub:" + publicKey);
-    console.log("sig:" + signature);
 
     if (selectedFile) {
       fetch(url, {

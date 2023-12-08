@@ -22,8 +22,6 @@ export const Home = () => {
 
   const [currentPublicKey, setCurrentPublicKey] = useState("");
 
-  const [currentSignature, setCurrentSignature] = useState("");
-
   if (token === null) {
     redirect("/");
   }
@@ -165,17 +163,15 @@ export const Home = () => {
       }
 
       setShowVerify(true);
-      let signature = data.signature;
       let publicKey = data.public_key;
       setCurrentPublicKey(publicKey);
-      setCurrentSignature(signature);
     });
   }, [allData]);
 
   return (
     <div className="home">
       <h1>List of All Available Files</h1>
-      <table id="filesTable" className="row-border">
+      <table id="filesTable" className="row-border" style={{ width: "100%" }}>
         <thead>
           <tr>
             <th>Number</th>
@@ -198,7 +194,6 @@ export const Home = () => {
         <Verify
           filename={currentFilename}
           publicKey={currentPublicKey}
-          signature={currentSignature}
           onCloseVerify={() => setShowVerify(false)}
         />
       )}
